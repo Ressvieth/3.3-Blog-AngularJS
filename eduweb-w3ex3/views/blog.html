@@ -1,0 +1,28 @@
+<h2 class="text-center">Blog posts</h2>
+<header class="search">
+	<input type='text' class="form-control" placeholder="search posts" ng-disabled="!posts" ng-model="query.title">
+	<div class="radio">
+		<label>
+			<input type="radio" name="order" ng-model="order" value="+title" ng-checked="true">
+			Ascending&nbsp&nbsp
+		</label>
+
+		<label>
+			<input type="radio" name="order" ng-model="order" value="-title"> Descending
+		</label>
+	</div>
+</header>
+<hr>
+<section class="posts" ng-show="postsHasLoaded">
+
+	<article class="post" ng-repeat="post in posts | filter: query | orderBy: order | limitTo: limit : offset">
+		<h4><strong><a href="#/blog/{{ post.id }}">{{ post.title }}</a></strong></h4>
+		<p>{{ post.body | limitTo: 100 }}</p>
+	</article>
+
+	<div class="text-center" dng-hide="limit >= no_of_posts">
+		<span class="btn btn-success" ng-click="loadMorePosts()">Load more posts</span>
+		<p class="loader text-center" ng-show="loading">Loading...</p>
+	</div>
+
+</section>
